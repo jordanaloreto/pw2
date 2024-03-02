@@ -1,3 +1,20 @@
+<?php
+// Inicialização da sessão (se já não estiver iniciada)
+session_start();
+
+// Verificar se o usuário está logado
+if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+    // Se estiver logado, redirecionar para a tela de cadastro
+    header("Location: novo-usuario.php");
+    exit(); // Encerrar o script após redirecionar
+}
+
+// Se o usuário não estiver logado, redirecionar para a página de login
+header("Location: login-usuario.php");
+exit(); // Encerrar o script após redirecionar
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +46,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="?page=listar">Listar usuarios</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?page=login">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -48,6 +68,9 @@
                         break;
                     case "salvar":
                         include("salvar-usuario.php");
+                        break;
+                    case "login":
+                        include("login-usuario.php");
                         break;
                     default:
                         print "<h1>Bem vindos!</h1>";
